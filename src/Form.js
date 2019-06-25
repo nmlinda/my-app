@@ -1,17 +1,21 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Button } from './Button';
 
 export class Form extends Component{
+  
   constructor(props){
     super(props);
-    const id = props.id ? props.id : new Date();
+    // const id = props.id ? props.id : new Date();
     this.state = {
-      id: id,
+      id: props.id,
       name: props.name || '',
       model: props.model || '',
     }
     this.onChangeInput = this.onChangeInput.bind(this);
   }
+
+  
 
   onChangeInput = (event) => {
     let nam = event.target.name;
@@ -35,3 +39,13 @@ export class Form extends Component{
   }
 
 }
+Form.propTypes = {
+  id: PropTypes.any,
+  name: PropTypes.string,
+  model: PropTypes.string,
+  handleSubmit: PropTypes.func.isRequired
+};
+
+Form.defaultProps = {
+  id: new Date()
+};

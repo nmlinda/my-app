@@ -10,12 +10,14 @@ class App extends Component {
     super(props);
     this.state = {
       items: [],
+      addForm: false
     }
 
     this.clearList = this.clearList.bind(this);
     this.addItem = this.addItem.bind(this);
     this.deleteItem = this.deleteItem.bind(this);
     this.editItem = this.editItem.bind(this);
+    this.showAddForm = this.showAddForm.bind(this);
   }
 
   componentDidMount() {
@@ -64,13 +66,22 @@ class App extends Component {
     this.setState({ items });
   }
 
+  showAddForm () {
+    this.setState({ addForm: true });
+  }
+
   render() {
     return (
       <div className="App">
         <h2>Star Wars</h2>
         <Button labelBtn="Clear" handleBtn={this.clearList} />
-        <h4>Add new vehicles</h4>
-        <Form handleSubmit={this.addItem} />
+        <Button labelBtn="Add" handleBtn={this.showAddForm} />
+        { this.state.addForm ?
+          <div>
+            <h4>Add new vehicles</h4>
+            <Form handleSubmit={this.addItem} />
+          </div>
+        : null }
         <List items={this.state.items} deleteItem={this.deleteItem} editItem={this.editItem} />
       </div>
     );
