@@ -6,21 +6,30 @@ export class Form extends Component{
   
   constructor(props){
     super(props);
-    // const id = props.id ? props.id : new Date();
     this.state = {
       id: props.id,
       name: props.name || '',
       model: props.model || '',
+      nameError: false,
+      modelError: false,
+      formValidated: false
     }
     this.onChangeInput = this.onChangeInput.bind(this);
   }
 
-  
-
   onChangeInput = (event) => {
     let nam = event.target.name;
     let val = event.target.value;
-    this.setState({ [nam]: val });
+    let minLength = event.target.minLength;
+    
+    if(val.length < minLength) {
+      let error = nam + 'Error';
+      this.setState({ [error]: true, formValidated: true })
+      console.log(this.state);
+    }
+    else {
+      this.setState({ [nam]: val, formValidated: false });
+    }
   }
 
   render() {
@@ -29,11 +38,13 @@ export class Form extends Component{
       <div>
         <form>
           <label>Name:</label>
-          <input type="text" placeholder="name" name="name" value={this.state.name} onChange={this.onChangeInput} />
+          <input type="text" placeholder="name" name="name" minLength={5} value={this.state.name} onChange={this.onChangeInput} />
+          <span >{ this.state.nameError ? "name kurang" : null}</span>
           <label>Model:</label>
-          <input type="text" placeholder="model" name="model" value={this.state.model} onChange={this.onChangeInput} />
+          <input type="text" placeholder="model" name="model" minLength={5} value={this.state.model} onChange={this.onChangeInput} />
+          <span >{ this.state.modelError ? "model kurang" : null}</span>
         </form>
-        <Button labelBtn="Save" handleBtn={() => handleSubmit(this.state) } />
+        <Button labelBtn="Save" disabled={this.formValidated} handleBtn={() => handleSubmit(this.state) } />
       </div>
     )
   }
