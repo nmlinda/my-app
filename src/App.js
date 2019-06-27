@@ -37,7 +37,6 @@ class App extends Component {
   addItem = newItem => {
     if (newItem.name && newItem.model) {
       this.setState({ items: [...this.state.items, newItem] });
-      console.log(newItem);
     }
     else {
       alert('lengkapi form dulu')
@@ -76,12 +75,12 @@ class App extends Component {
         <h2>Star Wars</h2>
         <Button labelBtn="Clear" handleBtn={this.clearList} />
         <Button labelBtn="Add" handleBtn={this.showAddForm} />
-        { this.state.addForm ?
+        { this.state.addForm &&
           <div>
             <h4>Add new vehicles</h4>
             <Form handleSubmit={this.addItem} />
           </div>
-        : null }
+        }
         <List items={this.state.items} deleteItem={this.deleteItem} editItem={this.editItem} />
       </div>
     );

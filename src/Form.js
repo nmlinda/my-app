@@ -25,7 +25,6 @@ export class Form extends Component{
     if(val.length < minLength) {
       let error = nam + 'Error';
       this.setState({ [error]: true, formValidated: true })
-      console.log(this.state);
     }
     else {
       this.setState({ [nam]: val, formValidated: false });
@@ -39,10 +38,10 @@ export class Form extends Component{
         <form>
           <label>Name:</label>
           <input type="text" placeholder="name" name="name" minLength={5} value={this.state.name} onChange={this.onChangeInput} />
-          <span >{ this.state.nameError ? "name kurang" : null}</span>
+          <span >{ this.state.nameError && "name kurang" }</span>
           <label>Model:</label>
           <input type="text" placeholder="model" name="model" minLength={5} value={this.state.model} onChange={this.onChangeInput} />
-          <span >{ this.state.modelError ? "model kurang" : null}</span>
+          <span >{ this.state.modelError && "model kurang" }</span>
         </form>
         <Button labelBtn="Save" disabled={this.formValidated} handleBtn={() => handleSubmit(this.state) } />
       </div>

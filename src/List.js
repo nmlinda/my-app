@@ -25,7 +25,7 @@ export class List extends Component {
             <Button labelBtn="Edit" handleBtn={this.showEditForm} />
             <Button labelBtn="Delete" handleBtn={() => this.props.deleteItem(item.id)} />
             
-            { this.state.editForm ? <Form name={item.name} model={item.model} id={item.id} handleSubmit={editItem} /> : null }
+            { this.state.editForm && <Form name={item.name} model={item.model} id={item.id} handleSubmit={editItem} /> }
           </li>
         ))}
       </ul>
